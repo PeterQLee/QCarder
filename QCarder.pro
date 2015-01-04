@@ -13,9 +13,13 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    drawstack.cpp \
+    testscreen.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    drawstack.h \
+    testscreen.h
 
 FORMS    += mainwindow.ui \
     modeselect.ui \

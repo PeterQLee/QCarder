@@ -21,6 +21,7 @@ public:
 private slots:
     void browseFile();
     void newFile();
+    void tmpGo();
 private:
     Ui::MainWindow *ui;
     //QPushButton *browseButton;
