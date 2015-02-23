@@ -1,49 +1,57 @@
 #ifndef DRAWSTACK_H
 #define DRAWSTACK_H
 
-#include <QWidget>
-#include <QOpenGLWidget>
-#include <QOpenGLFunctions>
-
 #ifdef __APPLE__
 #include <Python.h>
-elif __linux__
+#elif __linux__
 #include <python3.4m/Python.h>
 #endif
+#undef B0
+#include <handlePython.h>
+#include <QWidget>
 
-class drawStack: public QOpenGLWidget
+#include <QOpenGLWidget>
+#include <QOpenGLFunctions>
+#include <signal.h>
+
+class drawStack: public QOpenGLWidget, protected QOpenGLFunctions
 {
 public:
     int val=0;
-    drawStack(QWidget *parent) : QOpenGLWidget(parent){}
+ drawStack(QWidget *parent) : QOpenGLWidget(parent){
+     /*rgb=(unsigned char *)malloc(sizeof(unsigned char));
+
+     initializePython("/Users/Peter/go.qcard");
+     newFrame();*/
+
+ }
 
     ~drawStack();
-    void setVal();//test
-    void sayVal();//test
+    void initialize(const char **name);
     void regenTexture();
     void loadImage(int index);
     void clearImage(); //ununsed
     void newFrame();
     void changeStack(int pos);
-    int initializePython(char *name);
+    int initializePython(const char **name);
 protected:
     void initializeGL();
-
-
-        void resizeGL(int w, int h);
-
-
-        void paintGL();
+    void closeEvent(QCloseEvent *event);
+    void resizeGL(int w, int h);
+    void paintGL();
 private:
-        GLuint filePictures*;
-        int filePicturesize=0;
+        GLuint *filePictures;
+        int filePicturessize=0;
         int pictureIndex;
         int curPictureWidth;
         int curPictureHeight;
         int colorSize=3;
         unsigned char *rgb;
         PyObject *object;
-        //float picturecoords[]=
+        PyThreadState *tstate;
+        float picturecoords[];
+    //private slots:
+
 
 };
 

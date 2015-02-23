@@ -5,7 +5,8 @@
 #-------------------------------------------------
 
 QT       += core gui
-
+INCLUDEPATH +=/Library/Frameworks/Python.framework/Versions/3.4/include/python3.4m
+LIBS+= -L/Library/Frameworks/Python.framework/Versions/3.4/lib/ -lpython3.4m
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = QCarder
@@ -15,11 +16,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     drawstack.cpp \
-    testscreen.cpp
+    testscreen.cpp \
+    handlePython.cpp
 
 HEADERS  += mainwindow.h \
     drawstack.h \
-    testscreen.h
+    testscreen.h \
+    handlePython.h
 
 FORMS    += mainwindow.ui \
     modeselect.ui \
@@ -27,3 +30,5 @@ FORMS    += mainwindow.ui \
     createscreen.ui
 
 DISTFILES +=
+
+
