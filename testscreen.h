@@ -12,10 +12,8 @@ class TestScreen : public QWidget
 public:
     explicit TestScreen(QWidget *parent = 0);
     ~TestScreen();
-    void giveFileArg(const char **m);
-signals:
+    void giveFileArg(char **m);
 
-public slots:
 
 private:
     Ui::TestScreen *ui;

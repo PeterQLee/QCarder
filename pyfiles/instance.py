@@ -47,7 +47,7 @@ class instance:
                 RGBA[start:start+offset]=self.colormap[self.lettermap[index][letterpos:letterpos+cs]] #check this
         return RGBA
 
-    def updateImage(self,index,li):
+    def updateImage(self,index,li): 
         #print(len(li))
         sn=""
         for k in range(0,len(li),3):
@@ -114,11 +114,12 @@ class instance:
         for i in self.lettermap:
             f.write(i+",") #we will have to change this | seperator...
         f.write(":")
+        #write message contents here.. we will need to figure out a way to seperate these
         f.close()
     def readStack(self):
         f=None
         try:
-            f=open(self.name+".qcard","r")
+            f=open(self.name,"r")
         except:
             return False
         s="n"

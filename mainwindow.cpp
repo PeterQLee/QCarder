@@ -1,7 +1,7 @@
 #include "testscreen.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include <iostream>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -21,10 +21,15 @@ void MainWindow::newFile() {
 void MainWindow::tmpGo() {
     //QWidget *wid=new QWidget();
     QString f=ui->txtFileName->text();
-    const char *m=f.toLatin1().data();
+    std::string m=f.toStdString();//.c_str();//.toLatin1().data();
+    char * d=(char *)malloc(sizeof(char)*(m.length()+1));
+    std::copy(m.begin(),m.end(),d);
+    d[m.size()]='\0';
     TestScreen *tst=new TestScreen();
-    printf("mah stuff: %s\n",m);
-    tst->giveFileArg(&m);
+    //printf("mah stuff: %s\n",m);
+    //std::cout << d;
+    printf("%s\n",d);
+    tst->giveFileArg(&d);
     ////Ui::testscUI bi;
     ////bi.setupUi(wid);
     tst->show();
