@@ -58,7 +58,9 @@ private:
 public slots:
         void nextCard();
         void prevCard();
-
+        void showBack();
+//public signal:
+  //      void
 
 };
 

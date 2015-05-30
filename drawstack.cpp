@@ -149,7 +149,7 @@ void drawStack::changeStack(int pos) {
   printf("s%d\n",filePicturessize);
   if (pictureIndex+pos>=0 && pictureIndex+pos<filePicturessize) {
     printf("wrok?\n");
-     updateImage(object,pictureIndex,rgb,curPictureWidth,curPictureHeight,colorSize);
+     //updateImage(object,pictureIndex,rgb,curPictureWidth,curPictureHeight,colorSize); //descr
      //free(rgb);
      pictureIndex+=pos;
      loadImage(pictureIndex);
@@ -184,6 +184,8 @@ int drawStack::initializePython(char **name) { //will need to change things
   printf("after: %s\n",nk);
   const char *vv="(s)";
   args=Py_BuildValue(vv,nk);
+    free(nk);
+    //free(*name);
   if (args==NULL) {
     Py_DECREF(args);
     printf("can't args instance\n");
@@ -304,11 +306,15 @@ void drawStack::resizeGL(int width, int height){
 }
 void drawStack::nextCard() {
     //displays next card in stack, if there is one
-    changeStack(1);
+    changeStack(2);
     repaint();
 }
 void drawStack::prevCard() {
-    changeStack(-1); //change image index, and repaint
+    changeStack(-2); //change image index, and repaint
+    repaint();
+}
+void drawStack::showBack() {
+    changeStack(-(pictureIndex%2)*2+1);
     repaint();
 }
 

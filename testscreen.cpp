@@ -8,7 +8,8 @@ TestScreen::TestScreen(QWidget *parent) : QWidget(parent),ui(new Ui::TestScreen)
 
     connect(ui->btnNext,SIGNAL(released()),ui->openGLWidget,SLOT(nextCard()));
     connect(ui->btnPrev,SIGNAL(released()),ui->openGLWidget,SLOT(prevCard()));
-
+    connect(ui->btnShowBack,SIGNAL(released()),ui->openGLWidget,SLOT(showBack()));
+    //connect(ui->textBrowser,SIGNAL(textChanged(),ui->openGLWidget,SLOT(updateText())));
 }
 void TestScreen::giveFileArg(char **file){
     printf("sec %s\n",*file);

@@ -17,12 +17,16 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     drawstack.cpp \
     testscreen.cpp \
-    handlePython.cpp
+    handlePython.cpp \
+    createscreen.cpp \
+    colordisplay.cpp
 
 HEADERS  += mainwindow.h \
     drawstack.h \
     testscreen.h \
-    handlePython.h
+    handlePython.h \
+    createscreen.h \
+    colordisplay.h
 
 FORMS    += mainwindow.ui \
     modeselect.ui \

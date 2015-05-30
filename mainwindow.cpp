@@ -1,4 +1,5 @@
 #include "testscreen.h"
+#include "createscreen.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <iostream>
@@ -17,6 +18,13 @@ void MainWindow::browseFile() {
 }
 void MainWindow::newFile() {
     QString file=QFileDialog::getSaveFileName(this);
+    CreateScreen *cst=new CreateScreen();
+    std::string m=file.toStdString();
+    char * d=(char *)malloc(sizeof(char)*(m.length()+1));
+    std::copy(m.begin(),m.end(),d);
+    d[m.size()]='\0';
+    cst->giveFileArg(&d);
+    cst->show();
 }
 void MainWindow::tmpGo() {
     //QWidget *wid=new QWidget();
@@ -33,8 +41,6 @@ void MainWindow::tmpGo() {
     ////Ui::testscUI bi;
     ////bi.setupUi(wid);
     tst->show();
-
-
 
 }
 MainWindow::~MainWindow()

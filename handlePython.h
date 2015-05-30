@@ -8,6 +8,6 @@
 #include <python3.4m/Python.h>
 #endif
 
-int updateImage(PyObject *object,int index, unsigned char *rgb,int x, int y, int colsize); 
+int updateImage(PyObject *object,int index, unsigned char *rgb,int x, int y, int colsize,char *descript);
 int saveStack(PyObject *object);
-  
+char * getDesc(PyObject *object,int index);

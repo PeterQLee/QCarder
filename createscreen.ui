@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>CreateScreen</class>
+ <widget class="QWidget" name="CreateScreen">
   <property name="enabled">
    <bool>true</bool>
   </property>
@@ -16,7 +16,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QOpenGLWidget" name="oglPicture">
+  <widget class="drawStack" name="oglPicture">
    <property name="geometry">
     <rect>
      <x>5</x>
@@ -58,8 +58,17 @@
      <height>160</height>
     </rect>
    </property>
+   <property name="maximum">
+    <number>255</number>
+   </property>
    <property name="orientation">
     <enum>Qt::Vertical</enum>
+   </property>
+   <property name="tickPosition">
+    <enum>QSlider::TicksBelow</enum>
+   </property>
+   <property name="tickInterval">
+    <number>2</number>
    </property>
   </widget>
   <widget class="QSlider" name="sldGreen">
@@ -71,8 +80,17 @@
      <height>160</height>
     </rect>
    </property>
+   <property name="maximum">
+    <number>255</number>
+   </property>
    <property name="orientation">
     <enum>Qt::Vertical</enum>
+   </property>
+   <property name="tickPosition">
+    <enum>QSlider::TicksBelow</enum>
+   </property>
+   <property name="tickInterval">
+    <number>2</number>
    </property>
   </widget>
   <widget class="QSlider" name="sldBlue">
@@ -84,11 +102,20 @@
      <height>160</height>
     </rect>
    </property>
+   <property name="maximum">
+    <number>255</number>
+   </property>
    <property name="orientation">
     <enum>Qt::Vertical</enum>
    </property>
+   <property name="tickPosition">
+    <enum>QSlider::TicksBelow</enum>
+   </property>
+   <property name="tickInterval">
+    <number>2</number>
+   </property>
   </widget>
-  <widget class="QOpenGLWidget" name="oglSample">
+  <widget class="colorDisplay" name="oglSample">
    <property name="geometry">
     <rect>
      <x>560</x>
@@ -190,6 +217,18 @@
    </property>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>drawStack</class>
+   <extends>QOpenGLWidget</extends>
+   <header location="global">drawstack.h</header>
+  </customwidget>
+  <customwidget>
+   <class>colorDisplay</class>
+   <extends>QOpenGLWidget</extends>
+   <header>colordisplay.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

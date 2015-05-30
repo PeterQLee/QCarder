@@ -16,7 +16,10 @@ class instance:
             #wll need to make charids an array... or use moduluses...
             self.colormap={} ##in the future, map have color map be predetermined by file
             #that way file can be more compressed
-        
+            
+            #user is 
+            self.description=[]
+
             self.numImage=0
             #will predetermine size, so can just be a singular list of values
     def newImage(self,sizex,sizey):
@@ -29,11 +32,14 @@ class instance:
         #self.colorsize=1
         self.colormap[chr(1)]=tools.converthex("#FFFFFF")
         self.lettermap.append(chr(1)*self.width[n]*self.height[n]*self.colorsize)
-        
+        self.description.append("")
         
     def getDimensions(self,index):
         return (self.width[index],self.height[index]) #x,y
-    
+    def getDescription(self,index):
+        return self.description[index]
+    def getDescLength(self,index):
+        return len(self.description[index])
     def getRGBMap(self,index):
         h=self.height[index]
         w=self.width[index]
@@ -47,7 +53,7 @@ class instance:
                 RGBA[start:start+offset]=self.colormap[self.lettermap[index][letterpos:letterpos+cs]] #check this
         return RGBA
 
-    def updateImage(self,index,li): 
+    def updateImage(self,index,li,desc): #description
         #print(len(li))
         sn=""
         for k in range(0,len(li),3):
@@ -88,6 +94,7 @@ class instance:
             sn+=s#chr(s)
             #print("may?")
         self.lettermap[index]=sn
+        self.description[index]=desc
         print("done")
     def saveStack(self):
         """
@@ -114,6 +121,9 @@ class instance:
         for i in self.lettermap:
             f.write(i+",") #we will have to change this | seperator...
         f.write(":")
+        for i in self.description:
+            f.write(tools.deColonize(i)+"::")
+        
         #write message contents here.. we will need to figure out a way to seperate these
         f.close()
     def readStack(self):
@@ -125,12 +135,12 @@ class instance:
         s="n"
         stage=0 #0=num image, 1=colorsize, 2=colormap, 3=height, 4=width, 5=lettermap
         buffer=""
-        
+        self.description=[]
         while True:
             #print(stage)
             #print(buffer,"stage:",stage)
             s=f.read(1)
-            if s==":": #and (stage==0 or stage==1 or stage==3 or stage==4):
+            if s==":" and stage<6: #and (stage==0 or stage==1 or stage==3 or stage==4):
                 if stage==0:
                     self.numImage=int(buffer)
                 if stage==1:
@@ -165,13 +175,26 @@ class instance:
                 if stage==5:
                     d=buffer.split(",")
                     self.lettermap=d[:len(d)-1]
-                    break
+                    #break
                 stage+=1
                 buffer=""
                 continue
-            
+            #else if stage==6 and s==":" and len(buffer)!=0: #gets description tags
+                #if buffer[len(buffer)-1]==":":
+                    
             buffer+=s
-        
+            print(buffer)
+            if buffer[len(buffer)-2:]=="::" and buffer[len(buffer)-3:]!="&::" and stage>=6: #end of description (second condition to ensure no truncation
+                self.description.append(tools.reColonize(buffer[:len(buffer)-2]))
+                buffer=""
+                continue
+            if buffer=="":
+                break
+        #desk=buffer.split("::") #get description tags
+                
+        #for i in range(len(desk)):
+        #    desk[i]=tools.reColonize(desk[i])
+        #self.description=desk
         return True
 
     def reFormatMap(self):
